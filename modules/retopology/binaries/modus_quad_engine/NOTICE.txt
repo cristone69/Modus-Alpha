@@ -1,0 +1,6 @@
+Modus Quad Engine is a modified, unified QuadWild-BiMDF engine used for
+asynchronous retopology. QuadWild-BiMDF and these modifications are
+licensed under GPL-3.0-or-later.
+
+The compact QEM path includes meshoptimizer v0.25, licensed under MIT.
+Corresponding source is maintained in the Modus engine resource repository.
