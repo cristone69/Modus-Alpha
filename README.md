@@ -9,6 +9,9 @@ Modus is a lightweight Blender workflow layer. It collects the small, nonnegotia
 - Avoid taking over Blender's default Quick Favorites or broad keymap conventions.
 - Keep features modular, optional, and reversible where practical.
 
+## Documentation
+https://cristone69.github.io/Modus-Alpha/
+
 ## Primary shortcuts
 
 - **Shift+Q** — Open the mode-aware Modus menu.
