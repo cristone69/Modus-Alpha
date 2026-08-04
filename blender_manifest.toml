@@ -1,0 +1,15 @@
+schema_version = "1.1.0"
+
+id = "modus"
+version = "1.2.1"
+name = "Modus"
+tagline = "A lightweight workflow layer that keeps Blender familiar"
+maintainer = "Cris"
+type = "add-on"
+
+tags = ["Mesh", "Modeling", "3D View", "User Interface"]
+blender_version_min = "5.0.0"
+license = ["SPDX:GPL-3.0-or-later", "SPDX:BSD-3-Clause"]
+
+[permissions]
+files = "Export temporary meshes and import generated retopology and decimation results"
