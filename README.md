@@ -1,6 +1,6 @@
 # Modus 1.2.1
 
-Modus is a lightweight Blender workflow layer created by Cris. It collects the small, nonnegotiable modeling, retopology, object, modifier, material, UV, viewport, and organization tools used in a production workflow without trying to replace Blender's default interface or established workflows.
+Modus is a lightweight Blender workflow layer. It collects the small, nonnegotiable modeling, retopology, object, modifier, material, UV, viewport, and organization tools used in a production workflow without trying to replace Blender's default interface or established workflows.
 
 ## Core philosophy
 
