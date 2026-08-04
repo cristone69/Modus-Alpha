@@ -1,10 +1,19 @@
 # Modus Documentation
 
-Modus is a collection of modeling, retopology, viewport, and workflow tools for Blender.
+Modus is a collection of modeling, retopology, viewport, UV, and workflow tools for Blender.
 
-!!! warning "Alpha version"
-    Modus is under active development. Features and workflows may change before release.
+!!! warning "Alpha release"
+    
+## Start here
 
-## Getting started
+- [Installation](installation.md)
+- [Getting Started](getting-started.md)
+- [Feature Guide](features/index.md)
+- [Keyboard Shortcuts](shortcuts.md)
+- [Troubleshooting](troubleshooting.md)
 
-Documentation WIP
+## Compatibility
+
+Modus is designed for Blender 5.0 and newer.
+
+Some components may currently have additional platform requirements. See the installation and feature pages for details.
