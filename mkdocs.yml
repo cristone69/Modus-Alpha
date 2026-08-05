@@ -4,35 +4,80 @@ site_author: Cris
 
 theme:
   name: material
-
   palette:
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
       toggle:
         icon: material/weather-sunny
         name: Switch to light mode
-
     - media: "(prefers-color-scheme: light)"
       scheme: default
       toggle:
         icon: material/weather-night
         name: Switch to dark mode
-
   features:
     - navigation.sections
+    - navigation.indexes
+    - navigation.path
     - navigation.top
-    - search.suggest
+    - navigation.tracking
+    - toc.follow
     - search.highlight
+    - search.suggest
     - content.code.copy
 
 nav:
   - Home: index.md
+  - Getting Started:
+      - getting-started/index.md
+      - Installation: getting-started/installation.md
+      - Interface Overview: getting-started/interface-overview.md
+  - Interface and Viewport:
+      - interface/index.md
+      - Shift+Q Quick Menu: interface/quick-menu.md
+      - Modus N-panel: interface/n-panel.md
+      - N-panel Filtering: interface/n-panel-filtering.md
+      - Viewport and Topology: interface/viewport-topology.md
+      - Preferences: interface/preferences.md
+  - Modeling Tools:
+      - modeling/index.md
+      - Nested Isolation: modeling/isolation.md
+      - Flick Symmetrize: modeling/flick-symmetrize.md
+      - Merge Tools: modeling/merge-tools.md
+      - Edge Markings: modeling/edge-markings.md
+      - Cleanup and Multi Grid Fill: modeling/cleanup-grid-fill.md
+      - Loop Tools: modeling/loop-tools.md
+      - Origin to Selected: modeling/origin-to-selected.md
+      - Modifier Tools: modeling/modifier-tools.md
+      - Finalize Bevel: modeling/finalize-bevel.md
+  - Quad Primitives:
+      - primitives/index.md
+      - Quad Cylinder: primitives/quad-cylinder.md
+      - Quad Sphere: primitives/quad-sphere.md
+  - Auto Retopology:
+      - retopology/index.md
+      - Fast and Slow Retopology: retopology/retopology-modes.md
+      - Settings: retopology/settings.md
+      - Quick Decimate: retopology/quick-decimate.md
+      - Troubleshooting: retopology/troubleshooting.md
+  - Materials and UVs:
+      - materials-uv/index.md
+      - UV Material Preview: materials-uv/uv-preview.md
+      - Texture View: materials-uv/texture-view.md
+  - Complete Feature Index: features.md
+  - Reference:
+      - Default Shortcuts: reference/shortcuts.md
+      - Troubleshooting: reference/troubleshooting.md
+      - Changelog: reference/changelog.md
 
 markdown_extensions:
   - admonition
   - attr_list
+  - md_in_html
   - tables
   - toc:
       permalink: true
   - pymdownx.details
   - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
