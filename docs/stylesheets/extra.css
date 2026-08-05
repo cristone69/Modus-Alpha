@@ -1,0 +1,9 @@
+/* Hide the secondary, page-level table of contents. */
+.md-sidebar--secondary {
+  display: none;
+}
+
+/* Allow the article to use the space previously occupied by the TOC. */
+.md-content {
+  max-width: none;
+}

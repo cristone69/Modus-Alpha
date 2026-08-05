@@ -9,37 +9,39 @@ theme:
     toggle:
       icon: material/weather-sunny
       name: Switch to light mode
+    primary: grey
+    accent: grey
   - media: '(prefers-color-scheme: light)'
     scheme: default
     toggle:
       icon: material/weather-night
       name: Switch to dark mode
+    primary: grey
+    accent: grey
   features:
-  - navigation.indexes
   - navigation.path
   - navigation.top
   - navigation.tracking
-  - toc.follow
   - search.highlight
   - search.suggest
   - content.code.copy
-  logo: assets/modus_logo.svg
-  favicon: assets/modus_logo.svg
+  logo: assets/modus_icon.svg
+  favicon: assets/modus_icon.svg
 nav:
 - Home: index.md
 - Getting Started:
-  - getting-started/index.md
+  - Overview: getting-started/index.md
   - Installation: getting-started/installation.md
   - Interface Overview: getting-started/interface-overview.md
 - Interface and Viewport:
-  - interface/index.md
+  - Overview: interface/index.md
   - Shift+Q Quick Menu: interface/quick-menu.md
   - Modus N-panel: interface/n-panel.md
   - N-panel Filtering: interface/n-panel-filtering.md
   - Viewport and Topology: interface/viewport-topology.md
   - Preferences: interface/preferences.md
 - Modeling Tools:
-  - modeling/index.md
+  - Overview: modeling/index.md
   - Nested Isolation: modeling/isolation.md
   - Flick Symmetrize: modeling/flick-symmetrize.md
   - Merge Tools: modeling/merge-tools.md
@@ -50,17 +52,17 @@ nav:
   - Modifier Tools: modeling/modifier-tools.md
   - Finalize Bevel: modeling/finalize-bevel.md
 - Quad Primitives:
-  - primitives/index.md
+  - Overview: primitives/index.md
   - Quad Cylinder: primitives/quad-cylinder.md
   - Quad Sphere: primitives/quad-sphere.md
 - Auto Retopology:
-  - retopology/index.md
+  - Overview: retopology/index.md
   - Fast and Slow Retopology: retopology/retopology-modes.md
   - Settings: retopology/settings.md
   - Quick Decimate: retopology/quick-decimate.md
   - Troubleshooting: retopology/troubleshooting.md
 - Materials and UVs:
-  - materials-uv/index.md
+  - Overview: materials-uv/index.md
   - UV Material Preview: materials-uv/uv-preview.md
   - Texture View: materials-uv/texture-view.md
 - Complete Feature Index: features.md
@@ -79,3 +81,5 @@ markdown_extensions:
 - pymdownx.superfences
 - pymdownx.tabbed:
     alternate_style: true
+extra_css:
+- stylesheets/extra.css
