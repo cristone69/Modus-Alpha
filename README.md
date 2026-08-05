@@ -11,13 +11,3 @@ Modus is a lightweight Blender workflow layer. It collects the small, nonnegotia
 
 ## Documentation
 https://cristone69.github.io/Modus-Alpha/
-
-## Primary shortcuts
-
-- **Shift+Q** — Open the mode-aware Modus menu.
-- **Alt+Q** — Quick Boolean.
-- **Alt+X** — Flick Symmetrize
-- **Shift+Alt+R** — Force Loop
-
-- N-Panel
-
