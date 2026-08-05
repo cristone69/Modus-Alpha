@@ -15,16 +15,17 @@ theme:
       toggle:
         icon: material/weather-night
         name: Switch to dark mode
-  features:
-    - navigation.sections
-    - navigation.indexes
-    - navigation.path
-    - navigation.top
-    - navigation.tracking
-    - toc.follow
-    - search.highlight
-    - search.suggest
-    - content.code.copy
+features:
+  - navigation.tabs
+  - navigation.tabs.sticky
+  - navigation.indexes
+  - navigation.path
+  - navigation.top
+  - navigation.tracking
+  - toc.follow
+  - search.highlight
+  - search.suggest
+  - content.code.copy
 
 nav:
   - Home: index.md
