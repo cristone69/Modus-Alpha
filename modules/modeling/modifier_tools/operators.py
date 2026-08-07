@@ -103,135 +103,6 @@ def _move_to_cutter_collection(obj, collection):
     obj.display_type = 'WIRE'
 
 
-def _apply_modifier_types(
-    context,
-    modifier_types,
-    remove_missing_booleans=False,
-):
-    applied = 0
-    failed = 0
-    removed = 0
-    previous_active = context.view_layer.objects.active
-
-    for obj in _selected_mesh_objects(context):
-        modifier_names = []
-        for modifier in list(obj.modifiers):
-            if modifier.type not in modifier_types:
-                continue
-
-            missing_operand = (
-                modifier.type == 'BOOLEAN'
-                and (
-                    (
-                        modifier.operand_type == 'OBJECT'
-                        and modifier.object is None
-                    )
-                    or (
-                        modifier.operand_type == 'COLLECTION'
-                        and modifier.collection is None
-                    )
-                )
-            )
-            if remove_missing_booleans and missing_operand:
-                obj.modifiers.remove(modifier)
-                removed += 1
-                continue
-
-            modifier_names.append(modifier.name)
-
-        context.view_layer.objects.active = obj
-        for modifier_name in modifier_names:
-            if obj.modifiers.get(modifier_name) is None:
-                continue
-
-            try:
-                with context.temp_override(object=obj, active_object=obj):
-                    result = bpy.ops.object.modifier_apply(modifier=modifier_name)
-                if 'FINISHED' in result:
-                    applied += 1
-                else:
-                    failed += 1
-            except RuntimeError:
-                failed += 1
-
-    if previous_active and previous_active.name in context.view_layer.objects:
-        context.view_layer.objects.active = previous_active
-
-    return applied, failed, removed
-
-
-@persistent
-def _restore_selection_tracker(_filepath):
-    register_selection_tracker()
-
-
-def register_selection_tracker():
-    bpy.msgbus.clear_by_owner(_SELECTION_TRACKER_OWNER)
-    bpy.msgbus.subscribe_rna(
-        key=(bpy.types.LayerObjects, 'active'),
-        owner=_SELECTION_TRACKER_OWNER,
-        args=(),
-        notify=_record_selection_order,
-        options={'PERSISTENT'},
-    )
-
-    if _restore_selection_tracker not in bpy.app.handlers.load_post:
-        bpy.app.handlers.load_post.append(_restore_selection_tracker)
-
-    _SELECTION_ORDER.clear()
-    _record_selection_order()
-
-
-def unregister_selection_tracker():
-    bpy.msgbus.clear_by_owner(_SELECTION_TRACKER_OWNER)
-    if _restore_selection_tracker in bpy.app.handlers.load_post:
-        bpy.app.handlers.load_post.remove(_restore_selection_tracker)
-    _SELECTION_ORDER.clear()
-
-
-class MODUS_OT_toggle_mirror_axis(bpy.types.Operator):
-    bl_idname = 'modus.toggle_mirror_axis'
-    bl_label = 'Toggle Mirror Axis'
-    bl_description = 'Add or remove a cage-visible Mirror modifier on the chosen axis'
-    bl_options = {'REGISTER', 'UNDO'}
-
-    axis: EnumProperty(
-        name='Axis',
-        items=(
-            ('X', 'X', 'Mirror across the local X axis'),
-            ('Y', 'Y', 'Mirror across the local Y axis'),
-            ('Z', 'Z', 'Mirror across the local Z axis'),
-        ),
-        default='X',
-    )
-
-    @classmethod
-    def poll(cls, context):
-        return (
-            context.mode == 'EDIT_MESH'
-            and context.edit_object is not None
-            and context.edit_object.type == 'MESH'
-        )
-
-    def execute(self, context):
-        obj = context.edit_object
-        name = _MIRROR_NAMES[self.axis]
-        existing = obj.modifiers.get(name)
-
-        if existing and existing.type == 'MIRROR':
-            obj.modifiers.remove(existing)
-            return {'FINISHED'}
-
-        modifier = obj.modifiers.new(name=name, type='MIRROR')
-        modifier.use_axis = tuple(axis == self.axis for axis in ('X', 'Y', 'Z'))
-        modifier.use_mirror_merge = True
-        modifier.merge_threshold = 0.00001
-        modifier.use_clip = True
-        modifier.show_in_editmode = True
-        modifier.show_on_cage = True
-        return {'FINISHED'}
-
-
 class MODUS_ModelingSettings(bpy.types.PropertyGroup):
     edge_weight_mode: EnumProperty(
         name='Mode',
@@ -341,44 +212,6 @@ class MODUS_OT_add_bevel(bpy.types.Operator):
         return {'FINISHED'}
 
 
-class MODUS_OT_apply_mirror_boolean(bpy.types.Operator):
-    bl_idname = 'modus.apply_mirror_boolean'
-    bl_label = 'Apply Mirror and Boolean'
-    bl_description = 'Apply Mirror and Boolean modifiers in their current stack order'
-    bl_options = {'REGISTER', 'UNDO'}
-
-    @classmethod
-    def poll(cls, context):
-        return context.mode == 'OBJECT' and bool(_selected_mesh_objects(context))
-
-    def execute(self, context):
-        applied, failed, removed = _apply_modifier_types(
-            context,
-            {'MIRROR', 'BOOLEAN'},
-            remove_missing_booleans=True,
-        )
-        if not applied and not failed and not removed:
-            self.report({'INFO'}, 'No Mirror or Boolean modifiers to apply')
-            return {'CANCELLED'}
-
-        parts = []
-        if applied:
-            parts.append(
-                f'Applied {applied} Mirror/Boolean modifier'
-                + ('s' if applied != 1 else '')
-            )
-        if removed:
-            parts.append(
-                f'removed {removed} Boolean modifier'
-                + ('s with missing operands' if removed != 1 else ' with a missing operand')
-            )
-        if failed:
-            parts.append(f'{failed} could not be applied')
-        self.report({'WARNING'} if failed else {'INFO'}, '; '.join(parts))
-        return {'FINISHED'}
-
-
-
 class MODUS_OT_quick_boolean(bpy.types.Operator):
     bl_idname = 'modus.quick_boolean'
     bl_label = 'Quick Boolean'
@@ -442,6 +275,5 @@ CLASSES = (
     MODUS_OT_assign_edge_weight,
     MODUS_OT_clear_edge_weight,
     MODUS_OT_add_bevel,
-    MODUS_OT_apply_mirror_boolean,
     MODUS_OT_quick_boolean,
 )

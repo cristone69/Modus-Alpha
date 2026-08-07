@@ -1,4 +1,4 @@
-# Modus 1.2.1
+# Modus 1.2.2
 
 Modus is a lightweight Blender workflow layer. It collects the small, nonnegotiable modeling, retopology, object, modifier, material, UV, viewport, and organization tools used in a production workflow without trying to replace Blender's default interface or established workflows.
 

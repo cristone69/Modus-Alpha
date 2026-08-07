@@ -21,6 +21,3 @@ The X, Y, and Z controls add or remove a cage-visible Mirror modifier on the cho
 
 Adds a Bevel modifier configured for edge bevel weights. Existing Modus Bevel modifiers are preserved.
 
-## Apply Mirror/Boolean
-
-Applies Mirror and Boolean modifiers in their current stack order. Boolean modifiers with missing operands can be removed automatically.

@@ -5,12 +5,13 @@ from __future__ import annotations
 import bpy
 
 from . import core
-from .modules import modeling, n_panel, quick_menu, retopology, topology, uv_preview, viewport
+from .modules import modeling, n_panel, procedural_geonodes, quick_menu, retopology, topology, uv_preview, viewport
 
 MODULES = (
     n_panel,
     topology,
     modeling,
+    procedural_geonodes,
     quick_menu,
     uv_preview,
     viewport,

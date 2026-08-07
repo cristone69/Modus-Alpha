@@ -22,7 +22,7 @@ The Edit Mode menu includes:
 The Object Mode menu includes:
 
 - Add Bevel
-- Apply Mirror/Boolean
+- Map to Faces
 - Finalize Bevel
 - UV Material
 - Texture View

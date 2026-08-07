@@ -35,12 +35,17 @@
 - Background processing, cancellation, and automatic result import.
 - Original meshes stored in a hidden collection.
 
+## Procedural Geonodes
+
+- Map to Faces with quad, triangle, and fan mapping.
+- Optional smooth guide surface without increasing component count.
+- Surface subdivision, material override, normal transfer, and optional merge controls.
+
 ## Objects and modifiers
 
 - Quick Boolean.
 - Mirror-axis controls.
 - Bevel modifier helper.
-- Apply Mirror/Boolean.
 - Finalize Bevel with supported n-gon repair and seam marking.
 
 ## Primitives

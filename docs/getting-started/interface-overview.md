@@ -8,7 +8,7 @@ Press `Shift + Q` in Object Mode or Edit Mode.
 
 The menu changes with the current mode:
 
-- **Object Mode:** Bevel, Apply Mirror/Boolean, Finalize Bevel, UV Material, and Texture View.
+- **Object Mode:** Bevel, Finalize Bevel, Map to Faces, UV Material, and Texture View.
 - **Edit Mode:** topology controls, edge-marking mode, Assign by Angle, Clear Markings, Relax, Multi Grid Fill, Clean Up, Set Origin, and Mirror axes.
 
 ## Modus N-panel

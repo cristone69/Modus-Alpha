@@ -46,10 +46,10 @@ def draw_mode_tools(layout, context, presentation="MENU"):
             op = axis_row.operator('modus.toggle_mirror_axis', text=axis)
             op.axis = axis
     elif context.mode == 'OBJECT':
-        layout.operator('modus.add_bevel', text='Bevel', icon='MOD_BEVEL')
-        row = layout.row(align=True)
-        row.operator('modus.apply_mirror_boolean', text='Apply M/B', icon='MOD_BOOLEAN')
-        row.operator('modus.apply_bevel', text='Finalize Bevel', icon='MOD_BEVEL')
+        bevel_row = layout.row(align=True)
+        bevel_row.operator('modus.add_bevel', text='Bevel', icon='MOD_BEVEL')
+        bevel_row.operator('modus.apply_bevel', text='Finalize Bevel', icon='CHECKMARK')
+        layout.operator('modus.map_to_faces', text='Map to Faces', icon='GEOMETRY_NODES')
         layout.separator()
         from .. import uv_preview
         preview_row = layout.row(align=True)

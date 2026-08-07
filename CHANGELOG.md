@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.2.2
+
+- Added Map to Faces as the first feature in the new Procedural Geonodes module.
+- Added Map to Faces to the Object Mode Shift+Q menu.
+- Moved Finalize Bevel beside Bevel and 
+- Removed Apply Mirror/Boolean
+
+
 ## 1.2.1
 - Added Pre Smooth to Auto retopology
 - Changed naming conventions to Auto retopology
