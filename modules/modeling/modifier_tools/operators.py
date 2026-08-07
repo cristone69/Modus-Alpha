@@ -103,6 +103,83 @@ def _move_to_cutter_collection(obj, collection):
     obj.display_type = 'WIRE'
 
 
+@persistent
+def _selection_tracker_handler(_scene=None, _depsgraph=None):
+    """Keep a best-effort record of object selection order."""
+    try:
+        _record_selection_order()
+    except (AttributeError, ReferenceError, RuntimeError):
+        # Blender can call handlers while a file or view layer is changing.
+        pass
+
+
+def register_selection_tracker():
+    handlers = bpy.app.handlers.depsgraph_update_post
+    if _selection_tracker_handler not in handlers:
+        handlers.append(_selection_tracker_handler)
+    _record_selection_order()
+
+
+def unregister_selection_tracker():
+    handlers = bpy.app.handlers.depsgraph_update_post
+    while _selection_tracker_handler in handlers:
+        handlers.remove(_selection_tracker_handler)
+    _SELECTION_ORDER.clear()
+
+
+class MODUS_OT_toggle_mirror_axis(bpy.types.Operator):
+    bl_idname = 'modus.toggle_mirror_axis'
+    bl_label = 'Toggle Mirror Axis'
+    bl_description = 'Toggle a dedicated Modus Mirror modifier for the chosen axis'
+    bl_options = {'REGISTER', 'UNDO'}
+
+    axis: EnumProperty(
+        name='Axis',
+        items=(
+            ('X', 'X', 'Mirror across the X axis'),
+            ('Y', 'Y', 'Mirror across the Y axis'),
+            ('Z', 'Z', 'Mirror across the Z axis'),
+        ),
+        default='X',
+    )
+
+    @classmethod
+    def poll(cls, context):
+        return context.mode in {'OBJECT', 'EDIT_MESH'} and bool(_selected_mesh_objects(context))
+
+    def execute(self, context):
+        modifier_name = _MIRROR_NAMES[self.axis]
+        axis_index = {'X': 0, 'Y': 1, 'Z': 2}[self.axis]
+        objects = _selected_mesh_objects(context)
+        existing = [obj.modifiers.get(modifier_name) for obj in objects]
+        remove = bool(existing) and all(modifier is not None for modifier in existing)
+
+        changed = 0
+        for obj, modifier in zip(objects, existing):
+            if remove:
+                obj.modifiers.remove(modifier)
+                changed += 1
+                continue
+
+            if modifier is None:
+                modifier = obj.modifiers.new(name=modifier_name, type='MIRROR')
+                changed += 1
+
+            modifier.use_axis = (
+                axis_index == 0,
+                axis_index == 1,
+                axis_index == 2,
+            )
+            modifier.show_in_editmode = True
+
+        action = 'Removed' if remove else 'Enabled'
+        self.report(
+            {'INFO'},
+            f'{action} {self.axis} mirror on {changed} object' + ('s' if changed != 1 else ''),
+        )
+        return {'FINISHED'}
+
+
 class MODUS_ModelingSettings(bpy.types.PropertyGroup):
     edge_weight_mode: EnumProperty(
         name='Mode',
